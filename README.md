@@ -66,7 +66,8 @@ The script requires the following Python packages:
 ## License
 
 This script is licensed under the MIT License. See the LICENSE file for more information.
-Contributing
+
+## Contributing
 
 Contributions are welcome! Please open an issue or submit a pull request if you have any suggestions or improvements.
 
