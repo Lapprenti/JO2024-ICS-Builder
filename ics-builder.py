@@ -33,9 +33,15 @@ def create_ics(lang, start_date, end_date=None, nations=None, sports=None):
     if end_date is None:
         end_date = start_date
 
+    #Prepare filename
+    start_str = start_date.strftime('%Y-%m-%d')
+    end_str = end_date.strftime('%Y-%m-%d')
+    filename = f'JO2024-{start_str}-to-{end_str}'
+
     if nations is not None:
         print('Nations')
         print(nations)
+        filename+="_" + "-".join(nations)
 
     discipline_codes = []
     if sports is not None:
@@ -53,6 +59,7 @@ def create_ics(lang, start_date, end_date=None, nations=None, sports=None):
         discipline_codes = list(set(discipline_codes))
         print("Sports codes found :")
         print(discipline_codes)
+        filename+="_" + "-".join(sports)
 
     # Create a new calendar
     c = Calendar()
@@ -102,10 +109,7 @@ def create_ics(lang, start_date, end_date=None, nations=None, sports=None):
     # Write the calendar to a file
     output_folder = 'output'
     os.makedirs(output_folder, exist_ok=True)
-    start_str = start_date.strftime('%Y-%m-%d')
-    end_str = end_date.strftime('%Y-%m-%d')
-    filename = f'JO2024-{start_str}-to-{end_str}.ics'
-    filepath = os.path.join(output_folder, filename)
+    filepath = os.path.join(output_folder, f"{filename}.ics")
     with open(filepath, 'w') as ics_file:
         ics_file.writelines(c)
 
@@ -113,8 +117,8 @@ def create_ics(lang, start_date, end_date=None, nations=None, sports=None):
 lang = 'FRA'  # 'ENG' <-- If you want events in English (final ICS)
 start_date = datetime(2024, 7, 30)
 end_date = datetime(2024, 8, 10)  # Optional - if not set, will match the start date (entire day)
-nations = ['FRA']  # Optional
-sports = ['Badminton', 'Tennis', 'BMX', 'Skate', 'Gym', 'Table Tennis', 'Judo', 'Fencing']  # Optional
+#nations = ['FRA']  # Optional
+sports = ['Badminton', 'Climbing', 'BMX', 'Skate', 'Gym', 'Fencing', 'Basket', 'Canoe', 'DanceSport']  # Optional
 
 # Main entry point
-create_ics(lang=lang, start_date=start_date, end_date=None, nations=None, sports=None)
+create_ics(lang=lang, start_date=start_date, end_date=end_date, nations=None, sports=sports)
